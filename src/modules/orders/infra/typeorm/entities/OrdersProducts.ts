@@ -1,34 +1,45 @@
-import {
-  Entity,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, Generated } from 'typeorm';
 
 import Order from '@modules/orders/infra/typeorm/entities/Order';
 import Product from '@modules/products/infra/typeorm/entities/Product';
+import BaseModel from '@shared/infra/typeorm/entities/BaseModel';
 
-class OrdersProducts {
+@Entity()
+class OrdersProducts extends BaseModel {
+  @Column({
+    primary: true,
+    type: 'uuid',
+  })
+  @Generated('uuid')
   id: string;
 
+  @ManyToOne(() => Order, order => order.order_products, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   order: Order;
 
+  @ManyToOne(() => Product, product => product.orders_products, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   product: Product;
 
-  product_id: string;
+  // product_id: string;
 
-  order_id: string;
+  // order_id: string;
 
+  @Column({
+    type: 'decimal',
+    precision: 5,
+    scale: 2,
+  })
   price: number;
 
+  @Column({
+    type: 'integer',
+  })
   quantity: number;
-
-  created_at: Date;
-
-  updated_at: Date;
 }
 
 export default OrdersProducts;

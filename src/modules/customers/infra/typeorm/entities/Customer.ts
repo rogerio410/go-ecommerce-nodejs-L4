@@ -1,21 +1,24 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import Order from '@modules/orders/infra/typeorm/entities/Order';
+import BaseModel from '@shared/infra/typeorm/entities/BaseModel';
+import { Entity, Column, Generated, OneToMany } from 'typeorm';
 
-class Customer {
+@Entity()
+class Customer extends BaseModel {
+  @Column({
+    primary: true,
+    type: 'uuid',
+  })
+  @Generated('uuid')
   id: string;
 
+  @Column()
   name: string;
 
+  @Column()
   email: string;
 
-  created_at: Date;
-
-  updated_at: Date;
+  @OneToMany(() => Order, orders => orders.customer)
+  orders: Order[];
 }
 
 export default Customer;
