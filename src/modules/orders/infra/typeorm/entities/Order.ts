@@ -4,7 +4,7 @@ import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
 import BaseModel from '@shared/infra/typeorm/entities/BaseModel';
 
-@Entity()
+@Entity('orders')
 class Order extends BaseModel {
   @Column({
     primary: true,
@@ -19,7 +19,9 @@ class Order extends BaseModel {
   })
   customer: Customer;
 
-  @OneToMany(() => OrdersProducts, orders_products => orders_products.order)
+  @OneToMany(() => OrdersProducts, order_products => order_products.order, {
+    cascade: true,
+  })
   order_products: OrdersProducts[];
 }
 

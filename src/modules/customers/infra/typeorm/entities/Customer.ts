@@ -2,7 +2,7 @@ import Order from '@modules/orders/infra/typeorm/entities/Order';
 import BaseModel from '@shared/infra/typeorm/entities/BaseModel';
 import { Entity, Column, Generated, OneToMany } from 'typeorm';
 
-@Entity()
+@Entity('customers')
 class Customer extends BaseModel {
   @Column({
     primary: true,

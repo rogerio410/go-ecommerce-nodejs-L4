@@ -3,8 +3,9 @@ import { Entity, Column, ManyToOne, Generated } from 'typeorm';
 import Order from '@modules/orders/infra/typeorm/entities/Order';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 import BaseModel from '@shared/infra/typeorm/entities/BaseModel';
+import { Exclude, Expose } from 'class-transformer';
 
-@Entity()
+@Entity('orders_products')
 class OrdersProducts extends BaseModel {
   @Column({
     primary: true,
@@ -16,18 +17,28 @@ class OrdersProducts extends BaseModel {
   @ManyToOne(() => Order, order => order.order_products, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
+    eager: true,
   })
+  @Exclude()
   order: Order;
 
-  @ManyToOne(() => Product, product => product.orders_products, {
+  @ManyToOne(() => Product, product => product.order_products, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
+    eager: true,
   })
+  @Exclude()
   product: Product;
 
-  // product_id: string;
+  @Expose({ name: 'product_id' })
+  public getProductId(): string {
+    return this.product.id;
+  }
 
-  // order_id: string;
+  @Expose({ name: 'order_id' })
+  public getOrderId(): string {
+    return this.order.id;
+  }
 
   @Column({
     type: 'decimal',

@@ -1,17 +1,18 @@
-{
-  "type": "postgres",
-  "host": "localhost",
-  "port": "5430",
-  "username": "docker",
-  "password": "docker",
-  "database": "gostack_desafio09",
-  "entities": [
-    "./src/modules/**/infra/typeorm/entities/*.ts"
-  ],
-  "migrations": [
-    "./src/shared/infra/typeorm/migrations/*.ts"
-  ],
-  "cli": {
-    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "localhost",
+    "port": "5430",
+    "username": "docker",
+    "password": "docker",
+    "database": "gostack_desafio09",
+    "entities": [
+      "./src/modules/**/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": [
+      "./src/shared/infra/typeorm/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    }
   }
-}

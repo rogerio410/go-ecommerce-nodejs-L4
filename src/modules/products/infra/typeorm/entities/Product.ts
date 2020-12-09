@@ -3,7 +3,7 @@ import { Entity, Column, OneToMany, Generated } from 'typeorm';
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
 import BaseModel from '@shared/infra/typeorm/entities/BaseModel';
 
-@Entity()
+@Entity('products')
 class Product extends BaseModel {
   @Column({
     primary: true,
@@ -27,8 +27,8 @@ class Product extends BaseModel {
   })
   quantity: number;
 
-  @OneToMany(() => OrdersProducts, orders_products => orders_products.product)
-  orders_products: OrdersProducts[];
+  @OneToMany(() => OrdersProducts, order_products => order_products.product)
+  order_products: OrdersProducts[];
 }
 
 export default Product;
